@@ -6,6 +6,16 @@ import Button from '~/components/Button';
 
 const { width } = Dimensions.get('screen');
 
+export const Scroll = styled.ScrollView.attrs({
+  contentContainerStyle: {
+    padding: 30,
+  },
+  showsVerticalScrollIndicator: false,
+})`
+  flex: 1;
+  width: ${width}px;
+`;
+
 export const Container = styled.KeyboardAvoidingView.attrs({
   enabled: Platform.os === 'ios',
   behavior: 'padding',

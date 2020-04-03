@@ -34,8 +34,6 @@ export default function SignIn({ navigation }) {
   const loading = useSelector((state) => state.auth.loading);
 
   const formRef = useRef(null);
-  const emailRef = useRef(null);
-  const passwordRef = useRef(null);
 
   async function handleSubmit(data) {
     try {
@@ -59,18 +57,18 @@ export default function SignIn({ navigation }) {
           <InnerForm>
             <FormInput
               name="email"
-              ref={emailRef}
               icon="mail-outline"
               keyboardType="email-address"
               autoCorrect={false}
               autoCapitalize="none"
               placeholder="Digite seu e-mail"
               returnKeyType="next"
-              onSubmitEditing={() => passwordRef.current.focus()}
+              onSubmitEditing={() =>
+                formRef.current.getFieldRef('password').focus()
+              }
             />
             <FormInput
               name="password"
-              ref={passwordRef}
               icon="lock-outline"
               secureTextEntry
               placeholder="Digite sua senha"

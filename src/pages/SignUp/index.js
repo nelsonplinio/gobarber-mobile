@@ -35,9 +35,6 @@ export default function SignUp({ navigation }) {
   const loading = useSelector((state) => state.auth.loading);
 
   const formRef = useRef(null);
-  const nameRef = useRef(null);
-  const emailRef = useRef(null);
-  const passwordRef = useRef(null);
 
   async function handleSubmit(data) {
     try {
@@ -61,28 +58,29 @@ export default function SignUp({ navigation }) {
           <InnerForm>
             <FormInput
               name="name"
-              ref={nameRef}
               icon="person-outline"
               autoCorrect={false}
               autoCapitalize="none"
               placeholder="Nome completo"
               returnKeyType="next"
-              onSubmitEditing={() => emailRef.current.focus()}
+              onSubmitEditing={() =>
+                formRef.current.getFieldRef('email').focus()
+              }
             />
             <FormInput
               name="email"
-              ref={emailRef}
               icon="mail-outline"
               keyboardType="email-address"
               autoCorrect={false}
               autoCapitalize="none"
               placeholder="Digite seu e-mail"
               returnKeyType="next"
-              onSubmitEditing={() => passwordRef.current.focus()}
+              onSubmitEditing={() =>
+                formRef.current.getFieldRef('password').focus()
+              }
             />
             <FormInput
               name="password"
-              ref={passwordRef}
               icon="lock-outline"
               secureTextEntry
               placeholder="Digite sua senha"

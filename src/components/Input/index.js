@@ -1,36 +1,38 @@
-import React, { forwardRef, useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useField } from '@unform/core';
 
 import { Container, TInput, Error } from './styles';
 
-function Input({ name, style, icon, ...rest }, ref) {
+export default function Input({ name, style, icon, ...rest }) {
+  const inputRef = useRef(null);
   const { fieldName, registerField, defaultValue = '', error } = useField(name);
 
   useEffect(() => {
     registerField({
       name: fieldName,
-      ref: ref.current,
+      ref: inputRef.current,
       path: '_lastNativeText',
-      getValue(inref) {
-        return inref._lastNativeText || '';
+      getValue(ref) {
+        return ref._lastNativeText || '';
       },
-      setValue(inref, value) {
-        inref.setNativeProps({ text: value });
-        inref._lastNativeText = value;
+      setValue(ref, value) {
+        console.tron.log(name, value, ref._lastNativeText);
+        ref.setNativeProps({ text: value });
+        ref._lastNativeText = value;
       },
-      clearValue(inref) {
-        inref.setNativeProps({ text: '' });
-        inref._lastNativeText = '';
+      clearValue(ref) {
+        ref.setNativeProps({ text: '' });
+        ref._lastNativeText = '';
       },
     });
-  }, [fieldName, registerField, ref]);
+  }, [fieldName, registerField]);
 
   return (
     <Container style={style}>
       {icon && <Icon name={icon} size={20} color="rgba(255, 255, 255, 0.6)" />}
-      <TInput {...rest} ref={ref} defaultValue={defaultValue} />
+      <TInput ref={inputRef} defaultValue={defaultValue} {...rest} />
       {/* {error && <Error>{error}</Error>} */}
     </Container>
   );
@@ -46,5 +48,3 @@ Input.defaultProps = {
   style: {},
   icon: null,
 };
-
-export default forwardRef(Input);
