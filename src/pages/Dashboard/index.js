@@ -5,7 +5,7 @@ import api from '~/services/api';
 import Background from '~/components/Background';
 import Appointment from '~/components/Appointment';
 
-import { Container, Title, List } from './styles';
+import { Container, List } from './styles';
 
 export default function Dashboard() {
   const [page, setPage] = useState(1);
@@ -45,9 +45,8 @@ export default function Dashboard() {
   }
 
   return (
-    <Background>
+    <Background title="Agendamentos">
       <Container>
-        <Title>Agendamentos</Title>
         <List
           data={appointments}
           keyExtractor={(item) => String(item.id)}

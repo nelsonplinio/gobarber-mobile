@@ -24,13 +24,6 @@ export const Container = styled.KeyboardAvoidingView.attrs({
   align-items: center;
   padding: 0 30px;
 `;
-export const Title = styled.Text`
-  font-size: 24px;
-  color: #fff;
-  margin-top: 18px;
-  margin-bottom: 18px;
-  align-self: center;
-`;
 
 export const Image = styled.Image``;
 
@@ -55,4 +48,10 @@ export const FormInput = styled(Input)`
 export const SubmitButton = styled(Button)`
   margin-top: 5px;
   align-self: stretch;
+`;
+
+export const LogoutButton = styled(Button)`
+  margin-top: 16px;
+  align-self: stretch;
+  background: #f64c75;
 `;

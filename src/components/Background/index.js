@@ -1,8 +1,53 @@
-import styled from 'styled-components/native';
-import LinearGradient from 'react-native-linear-gradient';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-export default styled(LinearGradient).attrs({
-  colors:['#7159c1', '#ab59c1']
-})`
-  flex: 1;
-`;
+import {
+  Container,
+  Toolbar,
+  Title,
+  Actions,
+  ActionButton,
+  BackButtonIcon,
+} from './styles';
+
+export default function Background({ children, title, backButton }) {
+  return (
+    <Container>
+      {(title || backButton) && (
+        <Toolbar>
+          <Actions>
+            {backButton && (
+              <ActionButton onPress={backButton.onPress}>
+                {backButton.icon ? (
+                  backButton.icon()
+                ) : (
+                  <BackButtonIcon name="arrow-back" size={26} color="#fff" />
+                )}
+              </ActionButton>
+            )}
+          </Actions>
+          <Title>{title}</Title>
+          <Actions>
+            <ActionButton />
+          </Actions>
+        </Toolbar>
+      )}
+
+      {children}
+    </Container>
+  );
+}
+
+Background.propTypes = {
+  children: PropTypes.element.isRequired,
+  title: PropTypes.string,
+  backButton: PropTypes.shape({
+    onPress: PropTypes.func,
+    icon: PropTypes.func,
+  }),
+};
+
+Background.defaultProps = {
+  title: null,
+  backButton: null,
+};

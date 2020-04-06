@@ -5,17 +5,18 @@ import * as Yup from 'yup';
 
 import getErroMessages from '~/utils/getErroMessages';
 import { updateProfileRequest } from '~/store/modules/user/actions';
+import { signOut } from '~/store/modules/auth/actions';
 
 import Background from '~/components/Background';
 
 import {
   Container,
-  Title,
   Scroll,
   InnerForm,
   Separator,
   FormInput,
   SubmitButton,
+  LogoutButton,
 } from './styles';
 
 const schema = Yup.object().shape({
@@ -40,7 +41,6 @@ export default function Profile() {
       });
 
       const { name, email, oldPassword, password, confirmPassword } = data;
-      console.tron.log(data);
       dispatch(
         updateProfileRequest({
           name,
@@ -51,24 +51,26 @@ export default function Profile() {
         })
       );
     } catch (err) {
-      console.tron.log(err);
       formRef.current.setErrors(getErroMessages(err));
     }
   }
 
   useEffect(() => {
-    formRef.current.setData(profile);
     formRef.current.setFieldValue('oldPassword', '');
     formRef.current.setFieldValue('password', '');
     formRef.current.setFieldValue('confirmPassword', '');
+    formRef.current.setData(profile);
   }, [profile]);
 
+  function handleLogout() {
+    dispatch(signOut());
+  }
+
   return (
-    <Background>
+    <Background title="Meu Perfil">
       <Container>
         <Scroll>
-          <Title>Meu Perfil</Title>
-          <Form ref={formRef} onSubmit={handleSubmit}>
+          <Form ref={formRef} initialData={profile} onSubmit={handleSubmit}>
             <InnerForm>
               <FormInput
                 name="name"
@@ -129,6 +131,7 @@ export default function Profile() {
               Atualizar
             </SubmitButton>
           </Form>
+          <LogoutButton onPress={handleLogout}>Sair</LogoutButton>
         </Scroll>
       </Container>
     </Background>
