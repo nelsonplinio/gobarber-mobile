@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useIsFocused } from '@react-navigation/native';
 
 import api from '~/services/api';
 
@@ -8,6 +9,8 @@ import Appointment from '~/components/Appointment';
 import { Container, List } from './styles';
 
 export default function Dashboard() {
+  const isFocused = useIsFocused();
+
   const [page, setPage] = useState(1);
   const [appointments, setAppointments] = useState([]);
 
@@ -22,12 +25,13 @@ export default function Dashboard() {
       if (page === 1) {
         setAppointments(response.data);
       } else {
-        setAppointments([...appointments, response.data]);
+        // setAppointments([...appointments, response.data]);
       }
     }
-
-    loadAppointments();
-  }, [page]);
+    if (isFocused) {
+      loadAppointments();
+    }
+  }, [isFocused, page]);
 
   async function handleCancel(id) {
     const response = await api.delete(`/appointments/${id}`);

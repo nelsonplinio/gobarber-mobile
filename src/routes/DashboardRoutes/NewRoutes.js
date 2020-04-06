@@ -60,6 +60,7 @@ export default function NewRoutes() {
         name="ConfirmAppointment"
         component={ConfirmAppointment}
         options={{
+          title: 'Confirmar agendamento',
           headerLeft: () => {
             return (
               <TouchableOpacity
