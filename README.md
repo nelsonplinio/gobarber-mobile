@@ -41,6 +41,8 @@
 
 ## 📷 Imagens
 
+<div style='display: flex; flex-direction: column'>
+
 <strong>Login</strong>
 <img src='img/login.png'>
 <br />
@@ -60,7 +62,7 @@
   <img src='img/confirm_appoitments.png'>
 </div>
 <br />
-
+</div>
 ## 🚀 Instalar e usar
 
 ###### Clone o respostiorio.
